@@ -1,0 +1,7 @@
+node_modules
+public
+src/**/*.styled.js
+custom.d.ts
+*.md
+*.json
+*.html
