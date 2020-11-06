@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ServiceWrapper from './Service.styled'
+import { convertMinutes, convertPrice } from 'utils/helpers'
 
 const Service = ({ title, duration, price }) => {
   return (
     <ServiceWrapper>
       <h3>{title}</h3>
-      <p>{duration} minutes</p>
-      <p>{price} centimes</p>
+      <p>{convertMinutes(duration)}</p>
+      <p>{convertPrice(price)}</p>
     </ServiceWrapper>
   )
 }
