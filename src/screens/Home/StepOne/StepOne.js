@@ -6,17 +6,48 @@ import { getHaircuts } from 'actions/universes'
 import Service from 'components/Service'
 import { StepOneFooter } from './StepOne.styled'
 import Button from 'components/Button'
+import { convertMinutes, convertPrice } from 'utils/helpers'
 
 const { Panel } = Collapse
 
 const StepOne = (props) => {
   const [loading, setLoading] = useState(true)
+  const [services, setServices] = useState([])
+  const [price, setPrice] = useState(0)
+  const [duration, setDuration] = useState(0)
   const { getHaircuts, haircuts } = props
   const { title, categories } = haircuts
 
   useEffect(() => {
     getHaircuts().then(() => setLoading(false))
   }, [getHaircuts])
+
+  // Update price and duration with services
+  useEffect(() => {
+    let totalPrice = 0
+    services.forEach((service) => (totalPrice += service.count * service.price))
+    setPrice(convertPrice(totalPrice))
+
+    let totalDuration = 0
+    services.forEach((service) => (totalDuration += service.count * service.duration))
+    setDuration(convertMinutes(totalDuration))
+  }, [services])
+
+  const onChange = (service) => {
+    // If service is found in the list of services
+    if (services.find((s) => s.reference === service.reference)) {
+      // Replace service with new one (new count)
+      setServices(
+        services.map((s) => {
+          if (s && s.reference === service.reference) return service
+          else return s
+        })
+      )
+    } else {
+      // Else add the service
+      setServices(services.concat(service))
+    }
+  }
 
   return (
     <>
@@ -37,7 +68,7 @@ const StepOne = (props) => {
 
                       return (
                         <Col xs={24} md={12} lg={6} key={reference}>
-                          <Service {...prestation} />
+                          <Service {...prestation} onChange={onChange} />
                         </Col>
                       )
                     })}
@@ -47,8 +78,8 @@ const StepOne = (props) => {
             })}
           </Collapse>
           <StepOneFooter>
-            <span>Prix total : 0€</span>
-            <span>Temps total : 0 min</span>
+            <span>Prix total : {price}</span>
+            <span>Temps total : {duration}</span>
             <Button type="primary">Continuer</Button>
           </StepOneFooter>
         </>

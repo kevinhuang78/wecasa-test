@@ -4,17 +4,19 @@ import { ServiceWrapper, ServiceCallToAction } from './Service.styled'
 import { convertMinutes, convertPrice } from 'utils/helpers'
 import Button from 'components/Button'
 
-const Service = ({ title, duration, price }) => {
+const Service = ({ title, duration, price, reference, onChange }) => {
   const [count, setCount] = useState(0)
 
   const onClickMinus = () => {
     if (count === 0) return
 
     setCount(count - 1)
+    onChange({ title, duration, price, reference, count: count - 1 })
   }
 
   const onClickPlus = () => {
     setCount(count + 1)
+    onChange({ title, duration, price, reference, count: count + 1 })
   }
 
   return (
@@ -40,6 +42,7 @@ Service.propTypes = {
   price: PropTypes.number.isRequired,
   reference: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 }
 
 export default Service
