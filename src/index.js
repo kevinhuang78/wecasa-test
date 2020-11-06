@@ -7,6 +7,7 @@ import { applyMiddleware, createStore } from 'redux'
 import rootReducer from './reducers'
 import thunk from 'redux-thunk'
 import logger from 'redux-logger'
+import 'antd/dist/antd.css'
 
 export const store = createStore(
   rootReducer,
