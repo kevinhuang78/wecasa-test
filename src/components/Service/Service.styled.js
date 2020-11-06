@@ -5,4 +5,8 @@ const ServiceWrapper = styled(Card)`
   margin: 8px 0;
 `;
 
-export default ServiceWrapper
+const ServiceCallToAction = styled.div`
+  display: flex; justify-content: space-between; align-items: center;
+`
+
+export { ServiceWrapper, ServiceCallToAction }

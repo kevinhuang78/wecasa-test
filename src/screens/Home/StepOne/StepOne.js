@@ -4,6 +4,8 @@ import { Card, Divider, Collapse, Row, Col } from 'antd'
 import { connect } from 'react-redux'
 import { getHaircuts } from 'actions/universes'
 import Service from 'components/Service'
+import { StepOneFooter } from './StepOne.styled'
+import Button from 'components/Button'
 
 const { Panel } = Collapse
 
@@ -16,32 +18,41 @@ const StepOne = (props) => {
     getHaircuts().then(() => setLoading(false))
   }, [getHaircuts])
 
-  return loading ? (
-    <Card loading />
-  ) : (
+  return (
     <>
-      <Divider>{title}</Divider>
-      <Collapse ghost>
-        {categories.map((category) => {
-          const { reference, prestations } = category
+      {loading ? (
+        <Card loading />
+      ) : (
+        <>
+          <Divider>{title}</Divider>
+          <Collapse ghost>
+            {categories.map((category) => {
+              const { reference, prestations } = category
 
-          return (
-            <Panel header={`${title} ${category.title}`} key={reference}>
-              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                {prestations.map((prestation) => {
-                  const { reference } = prestation
+              return (
+                <Panel header={`${title} ${category.title}`} key={reference}>
+                  <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                    {prestations.map((prestation) => {
+                      const { reference } = prestation
 
-                  return (
-                    <Col xs={24} md={12} lg={6} key={reference}>
-                      <Service {...prestation} />
-                    </Col>
-                  )
-                })}
-              </Row>
-            </Panel>
-          )
-        })}
-      </Collapse>
+                      return (
+                        <Col xs={24} md={12} lg={6} key={reference}>
+                          <Service {...prestation} />
+                        </Col>
+                      )
+                    })}
+                  </Row>
+                </Panel>
+              )
+            })}
+          </Collapse>
+          <StepOneFooter>
+            <span>Prix total : 0€</span>
+            <span>Temps total : 0 min</span>
+            <Button type="primary">Continuer</Button>
+          </StepOneFooter>
+        </>
+      )}
     </>
   )
 }
