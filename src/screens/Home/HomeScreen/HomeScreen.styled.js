@@ -6,4 +6,16 @@ const StepsContainer = styled.div`
   border: 1px solid ${colors.blue};
 `
 
-export { StepsContainer };
+const StepFooter = styled.div`
+  display: flex; justify-content: space-between; align-items: center;
+  position: fixed; bottom: 0; left: 0;
+  width: 100vw;
+  padding: 16px 24px;
+  background-color: ${colors.primary}; color: ${colors.white};
+`
+
+const HiddenStep = styled.div`
+  ${props => props.show ? '' : 'display: none;'}
+`
+
+export { StepsContainer, StepFooter, HiddenStep };

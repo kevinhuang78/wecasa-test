@@ -4,18 +4,15 @@ import { Card, Divider, Collapse, Row, Col } from 'antd'
 import { connect } from 'react-redux'
 import { getHaircuts } from 'actions/universes'
 import Service from 'components/Service'
-import { StepOneFooter } from './StepOne.styled'
-import Button from 'components/Button'
-import { convertMinutes, convertPrice } from 'utils/helpers'
+import { updateBasket } from 'actions/basket'
+import { HiddenStep } from '../HomeScreen/HomeScreen.styled'
 
 const { Panel } = Collapse
 
 const StepOne = (props) => {
   const [loading, setLoading] = useState(true)
   const [services, setServices] = useState([])
-  const [price, setPrice] = useState(0)
-  const [duration, setDuration] = useState(0)
-  const { getHaircuts, haircuts } = props
+  const { getHaircuts, haircuts, updateBasket, show } = props
   const { title, categories } = haircuts
 
   useEffect(() => {
@@ -24,14 +21,8 @@ const StepOne = (props) => {
 
   // Update price and duration with services
   useEffect(() => {
-    let totalPrice = 0
-    services.forEach((service) => (totalPrice += service.count * service.price))
-    setPrice(totalPrice)
-
-    let totalDuration = 0
-    services.forEach((service) => (totalDuration += service.count * service.duration))
-    setDuration(totalDuration)
-  }, [services])
+    updateBasket(services)
+  }, [services, updateBasket])
 
   const onChange = (service) => {
     // If service is found in the list of services
@@ -51,7 +42,7 @@ const StepOne = (props) => {
   }
 
   return (
-    <>
+    <HiddenStep show={show}>
       {loading ? (
         <Card loading />
       ) : (
@@ -78,14 +69,9 @@ const StepOne = (props) => {
               )
             })}
           </Collapse>
-          <StepOneFooter>
-            <span>Prix total : {convertPrice(price)}</span>
-            <span>Temps total : {convertMinutes(duration)}</span>
-            <Button type="primary">Continuer</Button>
-          </StepOneFooter>
         </>
       )}
-    </>
+    </HiddenStep>
   )
 }
 
@@ -95,10 +81,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getHaircuts,
+  updateBasket,
 }
 
 StepOne.propTypes = {
   getHaircuts: PropTypes.func.isRequired,
+  updateBasket: PropTypes.func.isRequired,
+  show: PropTypes.bool,
   haircuts: PropTypes.shape({
     categories: PropTypes.arrayOf(
       PropTypes.shape({
