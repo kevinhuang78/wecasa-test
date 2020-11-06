@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import haircuts from './haircuts'
+import universes from './universes'
 
 export default combineReducers({
-  haircuts,
+  universes,
 })
