@@ -26,20 +26,21 @@ const StepOne = (props) => {
   useEffect(() => {
     let totalPrice = 0
     services.forEach((service) => (totalPrice += service.count * service.price))
-    setPrice(convertPrice(totalPrice))
+    setPrice(totalPrice)
 
     let totalDuration = 0
     services.forEach((service) => (totalDuration += service.count * service.duration))
-    setDuration(convertMinutes(totalDuration))
+    setDuration(totalDuration)
   }, [services])
 
   const onChange = (service) => {
     // If service is found in the list of services
-    if (services.find((s) => s.reference === service.reference)) {
+    const matchingService = services.find((s) => s.reference === service.reference)
+    if (matchingService) {
       // Replace service with new one (new count)
       setServices(
         services.map((s) => {
-          if (s && s.reference === service.reference) return service
+          if (s.reference === matchingService.reference) return service
           else return s
         })
       )
@@ -78,8 +79,8 @@ const StepOne = (props) => {
             })}
           </Collapse>
           <StepOneFooter>
-            <span>Prix total : {price}</span>
-            <span>Temps total : {duration}</span>
+            <span>Prix total : {convertPrice(price)}</span>
+            <span>Temps total : {convertMinutes(duration)}</span>
             <Button type="primary">Continuer</Button>
           </StepOneFooter>
         </>
