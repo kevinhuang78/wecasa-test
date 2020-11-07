@@ -1,4 +1,24 @@
 import * as constants from 'actions/constants'
+import PropTypes from 'prop-types'
+
+export const haircutsPropTypes = PropTypes.shape({
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      prestations: PropTypes.arrayOf(
+        PropTypes.shape({
+          duration: PropTypes.number.isRequired,
+          price: PropTypes.number.isRequired,
+          reference: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired,
+        })
+      ),
+      reference: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ),
+  reference: PropTypes.string,
+  title: PropTypes.string,
+})
 
 const initialState = {
   haircutsLoading: false,

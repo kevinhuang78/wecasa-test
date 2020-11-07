@@ -6,6 +6,7 @@ import { getHaircuts } from 'actions/universes'
 import Service from 'components/Service'
 import { updateBasket } from 'actions/basket'
 import { HiddenStep } from '../HomeScreen/HomeScreen.styled'
+import { haircutsPropTypes } from 'reducers/universes'
 
 const { Panel } = Collapse
 
@@ -88,24 +89,7 @@ StepOne.propTypes = {
   getHaircuts: PropTypes.func.isRequired,
   updateBasket: PropTypes.func.isRequired,
   show: PropTypes.bool,
-  haircuts: PropTypes.shape({
-    categories: PropTypes.arrayOf(
-      PropTypes.shape({
-        prestations: PropTypes.arrayOf(
-          PropTypes.shape({
-            duration: PropTypes.number.isRequired,
-            price: PropTypes.number.isRequired,
-            reference: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-          })
-        ),
-        reference: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-      })
-    ),
-    reference: PropTypes.string,
-    title: PropTypes.string,
-  }),
+  haircuts: haircutsPropTypes,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StepOne)

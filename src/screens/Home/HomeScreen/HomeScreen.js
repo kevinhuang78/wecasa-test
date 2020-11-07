@@ -1,24 +1,27 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import { Steps } from 'antd'
 import { StepFooter, StepsContainer } from './HomeScreen.styled'
 import StepOne from '../StepOne'
 import { convertMinutes, convertPrice } from 'utils/helpers'
 import Button from 'components/Button'
+import { basketPropTypes } from 'reducers/basket'
+import StepTwo from '../StepTwo'
 
 const { Step } = Steps
 
 const HomeScreen = (props) => {
   const [currentStep, setCurrentStep] = useState(0)
   const { basket } = props
-  const { totalPrice, totalDuration, services } = basket
+  const { totalPrice, totalDuration, services, address } = basket
 
   const disabledContinueBtn = () => {
     switch (currentStep) {
       case 0:
         const allServices = services.filter((s) => s.count !== 0)
         return allServices.length === 0
+      case 1:
+        return address === null
       default:
         return true
     }
@@ -34,6 +37,7 @@ const HomeScreen = (props) => {
       </Steps>
       <StepsContainer>
         <StepOne show={currentStep === 0} />
+        <StepTwo show={currentStep === 1} />
         <StepFooter>
           {currentStep !== 0 && <Button onClick={() => setCurrentStep(currentStep - 1)}>Précédent</Button>}
           <span>Prix total : {convertPrice(totalPrice)}</span>
@@ -52,19 +56,7 @@ const mapStateToProps = (state) => ({
 })
 
 HomeScreen.propTypes = {
-  basket: PropTypes.shape({
-    services: PropTypes.arrayOf(
-      PropTypes.shape({
-        duration: PropTypes.number.isRequired,
-        price: PropTypes.number.isRequired,
-        reference: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        count: PropTypes.number.isRequired,
-      })
-    ),
-    totalPrice: PropTypes.number.isRequired,
-    totalDuration: PropTypes.number.isRequired,
-  }),
+  basket: basketPropTypes,
 }
 
 export default connect(mapStateToProps, null)(HomeScreen)

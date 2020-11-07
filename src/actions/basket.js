@@ -11,3 +11,9 @@ export const updateBasket = (services) => {
     dispatch({ type: constants.UPDATE_BASKET_SUCCESS, data: { services, totalPrice, totalDuration } })
   }
 }
+
+export const updateAddress = (address) => {
+  return (dispatch) => {
+    dispatch({ type: constants.UPDATE_ADDRESS_SUCCESS, data: address })
+  }
+}
