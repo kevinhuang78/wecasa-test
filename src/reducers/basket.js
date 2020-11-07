@@ -45,6 +45,9 @@ const entities = (state = initialState, action) => {
         ...state,
         date: action.data,
       }
+    // Reset basket
+    case constants.POST_BOOK_PRESTATION_SUCCESS:
+      return initialState
     default:
       return state
   }
