@@ -17,3 +17,9 @@ export const updateAddress = (address) => {
     dispatch({ type: constants.UPDATE_ADDRESS_SUCCESS, data: address })
   }
 }
+
+export const updateAppointmentDate = (date) => {
+  return (dispatch) => {
+    dispatch({ type: constants.UPDATE_APPOINTMENT_DATE_SUCCESS, data: date })
+  }
+}

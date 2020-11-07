@@ -7,13 +7,14 @@ import { convertMinutes, convertPrice } from 'utils/helpers'
 import Button from 'components/Button'
 import { basketPropTypes } from 'reducers/basket'
 import StepTwo from '../StepTwo'
+import StepThree from '../StepThree'
 
 const { Step } = Steps
 
 const HomeScreen = (props) => {
   const [currentStep, setCurrentStep] = useState(0)
   const { basket } = props
-  const { totalPrice, totalDuration, services, address } = basket
+  const { totalPrice, totalDuration, services, address, date } = basket
 
   const disabledContinueBtn = () => {
     switch (currentStep) {
@@ -22,6 +23,10 @@ const HomeScreen = (props) => {
         return allServices.length === 0
       case 1:
         return address === null
+      case 2:
+        return date === null
+      case 3:
+        return false
       default:
         return true
     }
@@ -38,6 +43,7 @@ const HomeScreen = (props) => {
       <StepsContainer>
         <StepOne show={currentStep === 0} />
         <StepTwo show={currentStep === 1} />
+        <StepThree show={currentStep === 2} />
         <StepFooter>
           {currentStep !== 0 && <Button onClick={() => setCurrentStep(currentStep - 1)}>Précédent</Button>}
           <span>Prix total : {convertPrice(totalPrice)}</span>

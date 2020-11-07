@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import AlgoliaPlaces from 'algolia-places-react'
 import { Divider } from 'antd'
 import { HiddenStep } from '../HomeScreen/HomeScreen.styled'
-import { basketPropTypes } from 'reducers/basket'
 import { updateAddress } from 'actions/basket'
 import { connect } from 'react-redux'
 
@@ -32,7 +31,7 @@ const StepTwo = (props) => {
 
 StepTwo.propTypes = {
   show: PropTypes.bool,
-  basket: basketPropTypes,
+  updateAddress: PropTypes.func.isRequired,
 }
 
 const mapDispatchToProps = {

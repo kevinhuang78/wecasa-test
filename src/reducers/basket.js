@@ -14,6 +14,7 @@ export const basketPropTypes = PropTypes.shape({
   totalPrice: PropTypes.number.isRequired,
   totalDuration: PropTypes.number.isRequired,
   address: PropTypes.string,
+  date: PropTypes.string,
 })
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
   totalPrice: 0,
   totalDuration: 0,
   address: null,
+  date: null,
 }
 
 const entities = (state = initialState, action) => {
@@ -36,6 +38,12 @@ const entities = (state = initialState, action) => {
       return {
         ...state,
         address: action.data,
+      }
+    // Update appointment date
+    case constants.UPDATE_APPOINTMENT_DATE_SUCCESS:
+      return {
+        ...state,
+        date: action.data,
       }
     default:
       return state
