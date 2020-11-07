@@ -16,6 +16,7 @@ const { Step } = Steps
 
 const HomeScreen = (props) => {
   const [loading, setLoading] = useState(false)
+  const [reload, setReload] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
   const { basket, bookPrestation } = props
   const { totalPrice, totalDuration, services, address, date } = basket
@@ -51,7 +52,11 @@ const HomeScreen = (props) => {
         })
         break
       case 3:
-        setCurrentStep(0)
+        setReload(true)
+        setTimeout(() => {
+          setReload(false)
+          setCurrentStep(0)
+        }, 500)
         break
       default:
         break
@@ -67,7 +72,7 @@ const HomeScreen = (props) => {
         <Step title="Confirmation" />
       </Steps>
       <StepsContainer>
-        {!loading ? (
+        {!reload ? (
           <>
             <StepOne show={currentStep === 0} />
             <StepTwo show={currentStep === 1} />
