@@ -30,7 +30,7 @@ const StepThree = (props) => {
   }
 
   const onChange = (value) => {
-    updateAppointmentDate(value.toISOString())
+    updateAppointmentDate(value.add(1, 'hours').toISOString())
   }
 
   return (
