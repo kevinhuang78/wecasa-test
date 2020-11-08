@@ -7,7 +7,7 @@ const primaryTheme = `background-color: ${colors.primary}; border: 1px solid ${c
 const secondaryTheme = `background-color: ${colors.blue}; border: 1px solid ${colors.white}; color: ${colors.white};`
 
 describe('Test Service component', () => {
-  test('Test children props and CSS', () => {
+  test('Children props and CSS', () => {
     render(<Button>Submit</Button>)
     const btn = screen.getByRole('button')
 
@@ -15,7 +15,7 @@ describe('Test Service component', () => {
     expect(btn).toHaveStyle(secondaryTheme)
     expect(btn).not.toHaveStyle(primaryTheme)
   })
-  test('Test type primary props for CSS', () => {
+  test('Type primary props for CSS', () => {
     render(<Button type="primary">Continue</Button>)
     const btn = screen.getByRole('button')
 

@@ -7,23 +7,23 @@ const component = (
 )
 
 describe('Test Service component', () => {
-  test('Test title props', () => {
+  test('Title props', () => {
     render(component)
     expect(screen.getByRole('heading')).toHaveTextContent('Coiffure Homme')
   })
-  test('Test duration props', () => {
+  test('Duration props', () => {
     const { container } = render(component)
 
     expect(container.querySelectorAll('p')[0]).toHaveTextContent('1h')
     expect(container.querySelectorAll('p')[0]).not.toHaveTextContent('60 minutes')
   })
-  test('Test price props', () => {
+  test('Price props', () => {
     const { container } = render(component)
 
     expect(container.querySelectorAll('p')[1]).toHaveTextContent('10€')
     expect(container.querySelectorAll('p')[1]).not.toHaveTextContent('1000 centimes')
   })
-  test('Test count state', () => {
+  test('Count state', () => {
     const { container } = render(component)
     const minusBtn = screen.getAllByRole('button')[0]
     const plusBtn = screen.getAllByRole('button')[1]
