@@ -25,7 +25,7 @@ const StepThree = (props) => {
 
   const disabledDateTime = () => {
     return {
-      disabledHours: () => range(0, 7).concat(22, 23),
+      disabledHours: () => range(0, 7).concat(range(22, 24)),
     }
   }
 
